@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   solo_part.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bschmidt <bschmidt@student.42.de>          +#+  +:+       +#+        */
+/*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 17:06:44 by bschmidt          #+#    #+#             */
-/*   Updated: 2024/03/05 00:23:22 by bschmidt         ###   ########.fr       */
+/*   Updated: 2024/04/23 18:27:30 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void	solo_argument(t_data *data, t_token *arg)
 		if (arg->type == COMMAND)
 			exec_command(arg, data);
 	}
+	else
+		signal(SIGINT, SIG_IGN);
 	waitpid(data->pid, &status, 0);
 	if (WIFEXITED(status))
 		data->exit = WEXITSTATUS(status);

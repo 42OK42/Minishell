@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 16:21:24 by okrahl            #+#    #+#             */
-/*   Updated: 2024/04/03 13:50:47 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/04/23 18:28:34 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	handle_sigint(int sig)
 	write(1, "\n", 1);
 	rl_replace_line("", 0);
 	rl_on_new_line();
-	rl_redisplay();
+	//rl_redisplay();
 }
 
 void	ft_handle_cat_backslash(int signum)

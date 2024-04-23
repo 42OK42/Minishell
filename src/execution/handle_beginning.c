@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 16:28:01 by bschmidt          #+#    #+#             */
-/*   Updated: 2024/04/03 14:25:31 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/04/23 18:22:13 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	exec_child_b(t_token *args, t_data *data)
 {
+	printf("Die Prozess-ID im child ist: %d\n", getpid());
 	close(data->fd[0]);
 	if (data->out_dirs == 0)
 	{
@@ -58,7 +59,9 @@ void	handle_beginning(t_token *args, t_data *data)
 	data->pids[data->x] = fork1();
 	if (data->pids[data->x] == -1)
 		exit(1);
-	else if (data->pids[data->x] == 0)
+	else if (data->pids[data->x] != 0)
+		signal(SIGINT, SIG_IGN);
+	else
 		exec_child_b(arg, data);
 	close(data->fd[1]);
 	restore_std_io(data);
