@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debugging.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bschmidt <bschmidt@student.42.de>          +#+  +:+       +#+        */
+/*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 16:36:37 by bschmidt          #+#    #+#             */
-/*   Updated: 2024/03/05 02:56:09 by bschmidt         ###   ########.fr       */
+/*   Updated: 2024/04/23 19:54:45 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,23 @@ void	print_args(t_token *args)
 	while (args != NULL)
 	{
 		if ((args->type) == ARGUMENT)
-			ft_printf("Its an Argument\n Mit Content: %s\n", args->content);
+			ft_printf("Its an Argument mit Content: %s\n", args->content);
 		if ((args->type) == IN_REDIR)
-			ft_printf("Its an in_redir\n");
+			ft_printf("Its an in_redir mit Content: %s\n", args->content);
 		if ((args->type) == OUT_REDIR)
-			ft_printf("Its an out_redir\n");
+			ft_printf("Its an out_redir mit Content: %s\n", args->content);
 		if ((args->type) == HERE_DOC)
-			ft_printf("Its a Here_Doc\n");
+			ft_printf("Its a Here_Doc mit Content: %s\n", args->content);
 		if ((args->type) == APPEND)
-			ft_printf("Its an Append\n");
+			ft_printf("Its an Append mit Content: %s\n", args->content);
 		if ((args->type) == PIPE)
-			ft_printf("Its a Pipe\n");
+			ft_printf("Its a Pipe mit Content: %s\n", args->content);
 		if ((args->type) == COMMAND)
-			ft_printf("Its a Command\n");
+			ft_printf("Its a Command mit Content: %s\n", args->content);
 		if ((args->type) == BUILT_IN)
-			ft_printf("Its a Built_in\n");
+			ft_printf("Its a Built_in mit Content: %s\n", args->content);
+		if ((args->type) == HD_PREP)
+			ft_printf("Its HD_prep mit Content: %s", args->content);
 		args = args->next;
 	}
 }

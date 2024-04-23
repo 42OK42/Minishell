@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 16:28:01 by bschmidt          #+#    #+#             */
-/*   Updated: 2024/04/23 18:22:13 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/04/23 19:23:20 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,6 @@ void	handle_beginning(t_token *args, t_data *data)
 
 	arg = args;
 	counting_redirs(arg, data);
-	signal(SIGINT, handle_heredoc);
-	if (data->here_doc > 0)
-	{
-		exec_here_doc(data, arg);
-		//ft_printf("gsigflag%i\n", g_sig_flag);
-		if (g_sig_flag == 130)
-			data->exit = g_sig_flag;
-	}
-	signal(SIGINT, handle_sigint_l);
 	if (pipe(data->fd) == -1)
 	{
 		ft_perror("couldnt create pipe");

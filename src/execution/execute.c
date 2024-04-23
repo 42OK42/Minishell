@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 12:18:50 by bschmidt          #+#    #+#             */
-/*   Updated: 2024/04/03 14:24:05 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/04/23 19:26:30 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	exec_args(t_token *args, t_data *data)
 		if (args && args->next)
 			args = args->next;
 	}
-	if (data->parts > 1 && g_sig_flag != 130) // fickt das was? Zum beispiel cat????? das muss geskipped werden wenn heredoc executed wurde
+	if (data->parts > 1)
 		wait_for_children(data);
 	prep_next_input(args_start, data);
 }

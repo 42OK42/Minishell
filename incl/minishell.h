@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 08:41:45 by okrahl            #+#    #+#             */
-/*   Updated: 2024/03/13 00:08:22 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/04/23 19:17:38 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ typedef enum e_type
 	APPEND,
 	PIPE,
 	COMMAND,
-	BUILT_IN
+	BUILT_IN,
+	HD_PREP,
 }	t_type;
 
 typedef struct s_token 
@@ -230,7 +231,7 @@ void		solo_command(t_data *data, t_token *arg);
 
 //execute HERE_DOC
 void		handle_here_doc(t_data *data, char *end, int fd_out);
-void		exec_here_doc(t_data *data, t_token *args);
+char		*execute_here_doc(t_data *data, char *delimiter);
 void		limit_error(t_data *data, char *end);
 
 //execute built_ins

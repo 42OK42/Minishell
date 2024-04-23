@@ -3,14 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   parsing2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bschmidt <bschmidt@student.42.de>          +#+  +:+       +#+        */
+/*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 17:25:55 by okrahl            #+#    #+#             */
-/*   Updated: 2024/03/04 23:31:48 by bschmidt         ###   ########.fr       */
+/*   Updated: 2024/04/23 20:03:16 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+t_token	*exec_here_doc2(t_token *args, t_data *data)
+{
+	char	*str;
+	t_token *start;
+	t_token	*temp;
+
+	start = args;
+	while (args)
+	{
+		if (args->type == HERE_DOC && args->next)
+		{
+			str = execute_here_doc(data, args->next->content);
+			temp = args->next;
+			args->next = args->next->next;
+			//free_token(temp);
+			free(args->content);
+			args->content = str;
+			args->type = HD_PREP;
+		}
+		args = args->next;
+	}
+	return (start);
+}
 
 void	process_tokens(char **words, t_data *data, \
 	t_token **first_token, t_token **last_token)
@@ -57,9 +81,11 @@ t_token **first_token, t_token **last_token)
 void	process_line(char *line, t_data *data)
 {
 	t_token	*first_token;
+	t_token	*first_token2;
 	t_token	*last_token;
 
 	first_token = NULL;
+	first_token2 = NULL;
 	last_token = NULL;
 	if (line && *line)
 	{
@@ -79,7 +105,12 @@ void	process_line(char *line, t_data *data)
 			return ;
 		}
 		free_quote_flag(data);
-		print_args(first_token);
-		exec_args(first_token, data);
+		signal(SIGINT, handle_heredoc);
+		first_token2 = exec_here_doc2(first_token, data);
+		if (g_sig_flag == 130)
+			data->exit = g_sig_flag;
+		signal(SIGINT, handle_sigint);
+		print_args(first_token2);
+		//exec_args(first_token2, data);
 	}
 }

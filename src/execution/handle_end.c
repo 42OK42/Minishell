@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 16:28:35 by bschmidt          #+#    #+#             */
-/*   Updated: 2024/04/23 18:19:36 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/04/23 19:31:18 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,6 @@ void	handle_end(t_token *args, t_data *data)
 
 	arg = get_correct_args(args, data);
 	counting_redirs(arg, data);
-	signal(SIGINT, handle_heredoc);
-	if (data->here_doc > 0)
-	{
-		exec_here_doc(data, arg);
-		if (g_sig_flag == 130)
-			data->exit = g_sig_flag;
-	}
 	signal(SIGINT, handle_sigint_l);
 	handle_in_redirection_e(arg, data);
 	if (check_in_redir(data) == 1)
