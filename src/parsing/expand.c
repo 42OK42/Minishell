@@ -6,7 +6,7 @@
 /*   By: bschmidt <bschmidt@student.42.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 16:14:05 by okrahl            #+#    #+#             */
-/*   Updated: 2024/03/03 22:22:27 by bschmidt         ###   ########.fr       */
+/*   Updated: 2024/04/25 16:36:06 by bschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*replace_double_dollar(char *line)
 	char	*new_line;
 	char	*p;
 
-	size = strlen(line) - (2 * count_dollar_pairs(line)) + 1;
+	size = ft_strlen(line) - (2 * count_dollar_pairs(line)) + 1;
 	new_line = malloc(size * sizeof(char));
 	p = new_line;
 	while (*line)
@@ -58,6 +58,20 @@ void	update_quote_flags(int *single_q, int *double_q, char c)
 	}
 }
 
+int	not_heredoc(char *line, int i)
+{
+	i = i - 1;
+	while (i > 0 && line[i] && line[i] == ' ')
+	{
+		i--;
+	}
+	if (i <= 0)
+		return (0);
+	else if (line[i] == '<' && line[i - 1] && line[i - i] == '<')
+		return (1);
+	return (0);
+}
+
 char	*process_dollar_expansion(char *line, t_data *data, int *i)
 {
 	char	*old_line;
@@ -70,7 +84,8 @@ char	*process_dollar_expansion(char *line, t_data *data, int *i)
 	}
 	if (line[*i] == '$')
 	{
-		if (line[*i + 1] != '$' && line_only_spaces(line, *i + 1) == -1)
+		if (line[*i + 1] != '$' && line_only_spaces(line, *i + 1) == -1 
+			&& not_heredoc(line, *i) == 0)
 			line = actually_expand(data, line, *i);
 	}
 	return (line);
@@ -99,18 +114,4 @@ char	*expand(char *line, t_data *data)
 		i++;
 	}
 	return (line);
-}
-
-int	find_dollar(char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i])
-	{
-		if (line[i] == '$')
-			return (1);
-		i++;
-	}
-	return (0);
 }

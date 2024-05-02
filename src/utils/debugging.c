@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debugging.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bschmidt <bschmidt@student.42.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 16:36:37 by bschmidt          #+#    #+#             */
-/*   Updated: 2024/04/23 19:54:45 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/04/25 16:38:30 by bschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	test_env(char **env, t_data *data)
 	i = 0;
 	while (env[i])
 	{
-		if (strcmp(env[i], data->env[i]) == 0)
+		if (ft_strcmp(env[i], data->env[i]) == 0)
 			i++;
 		else
 			ft_printf("not equal");
@@ -66,14 +66,3 @@ void	print_struct(t_data *data)
 	ft_printf("fd_in: %d\n", data->fd_in);
 	ft_printf("fd_out: %d\n", data->fd_out);
 }
-
-	/* int		test;
-	int		exit;
-	int		args;
-	int		cmds;
-	int		x;
-	int		solo;
-	int		built_ins;
-	int		fd[2];
-	int		fd2[2];
-	pid_t	*pids; */

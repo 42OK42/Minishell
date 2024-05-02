@@ -6,7 +6,7 @@
 /*   By: bschmidt <bschmidt@student.42.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 16:33:40 by bschmidt          #+#    #+#             */
-/*   Updated: 2024/03/05 03:20:00 by bschmidt         ###   ########.fr       */
+/*   Updated: 2024/04/25 00:18:55 by bschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,31 @@ int	fork1(void)
 		return (-1);
 	}
 	return (pid);
+}
+
+char	*get_env_value2(t_data *data, char *str)
+{
+	int		i;
+	char	*var;
+	char	*value;
+
+	i = 0;
+	while (data->env[i])
+	{
+		var = var_name(data->env[i]);
+		if (ft_strcmp(var, str) == 0)
+		{
+			value = trim_strfront(data->env[i], ft_strlen(var) + 1);
+			free(var);
+			return (value);
+		}
+		else
+		{
+			free(var);
+			i++;
+		}
+	}
+	return (NULL);
 }
 
 char	*trim_strfront(char *str, int x)

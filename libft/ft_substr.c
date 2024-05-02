@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bschmidt <bschmidt@student.42berlin.d      +#+  +:+       +#+        */
+/*   By: bschmidt <bschmidt@student.42.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 14:44:55 by bschmidt          #+#    #+#             */
-/*   Updated: 2023/06/24 14:44:57 by bschmidt         ###   ########.fr       */
+/*   Updated: 2024/04/25 16:35:06 by bschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,32 +33,3 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	ptr[counter] = 0;
 	return (ptr);
 }
-
-/*
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-int main(void)
-{
-    const char *str = "Hello";
-    unsigned int start = 7;
-    size_t len = 5;
-
-    // Call ft_substr
-    char *substring = ft_substr(str, start, len);
-
-    if (substring != NULL)
-    {
-        printf("Substring: %s\n", substring);
-        // Remember to free the allocated memory
-        free(substring);
-    }
-    else
-    {
-        printf("Failed to allocate memory for the substring.\n");
-    }
-
-    return 0;
-}
-*/

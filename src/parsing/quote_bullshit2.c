@@ -6,7 +6,7 @@
 /*   By: bschmidt <bschmidt@student.42.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 17:23:19 by okrahl            #+#    #+#             */
-/*   Updated: 2024/03/05 02:52:56 by bschmidt         ###   ########.fr       */
+/*   Updated: 2024/04/25 16:37:28 by bschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	free_word_and_replace(int i, int j, char **words)
 	new_word = (char *)malloc((len - 1) * sizeof(char));
 	if (new_word == NULL)
 	{
-		printf("Error: Out of memory.\n");
+		ft_printf("Error: Out of memory.\n");
 		return ;
 	}
 	ft_strlcpy(new_word, words[i], j + 1);

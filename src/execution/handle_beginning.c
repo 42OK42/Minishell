@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_beginning.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bschmidt <bschmidt@student.42.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 16:28:01 by bschmidt          #+#    #+#             */
-/*   Updated: 2024/04/23 19:23:20 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/04/25 16:28:40 by bschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	exec_child_b(t_token *args, t_data *data)
 {
-	printf("Die Prozess-ID im child ist: %d\n", getpid());
 	close(data->fd[0]);
 	if (data->out_dirs == 0)
 	{
@@ -34,7 +33,7 @@ void	handle_beginning(t_token *args, t_data *data)
 	t_token	*arg;
 
 	arg = args;
-	counting_redirs(arg, data);
+	prep_signals(arg, data);
 	if (pipe(data->fd) == -1)
 	{
 		ft_perror("couldnt create pipe");

@@ -6,7 +6,7 @@
 /*   By: bschmidt <bschmidt@student.42.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 17:21:13 by okrahl            #+#    #+#             */
-/*   Updated: 2024/03/05 03:10:06 by bschmidt         ###   ########.fr       */
+/*   Updated: 2024/04/25 16:39:45 by bschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,12 @@ int	count_pipe_characters(const char *s, int *i)
 	return (count);
 }
 
-int	count_additional_spaces(const char *s, int seq_count)
+int	count_additional_spaces(const char *s)
 {
-	int		i;
-	int		count;
-	int		single_q;
-	int		double_q;
-	char	current_char;
+	int	i;
+	int	count;
+	int	single_q;
+	int	double_q;
 
 	i = 0;
 	count = 0;
@@ -74,30 +73,16 @@ int	count_additional_spaces(const char *s, int seq_count)
 	double_q = 0;
 	while (s[i] != '\0')
 	{
-		seq_count = 0;
-		current_char = s[i];
 		update_quote_flags(&single_q, &double_q, s[i]);
 		if ((s[i] == '<' || s[i] == '>' || s[i] == '|') \
 			&& single_q == 0 && double_q == 0)
 		{
-			while (s[i] == current_char)
-			{
-				seq_count++;
-				i++;
-			}
-			if (seq_count == 1)
-				count += 2;
-			else if (seq_count == 2)
-				count += 1;
-			else
-				count += 1 + (seq_count - 2) * 2;
-			if (s[i] != ' ' && s[i] != '\0')
-				count++;
+			count += count_special_char_sequence(s, &i, '>');
+			count += count_special_char_sequence(s, &i, '<');
+			count += count_pipe_characters(s, &i);
 		}
 		else
-		{
 			i++;
-		}
 	}
 	return (count);
 }

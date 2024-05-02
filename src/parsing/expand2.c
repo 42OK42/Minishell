@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bschmidt <bschmidt@student.42.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 17:22:11 by okrahl            #+#    #+#             */
-/*   Updated: 2024/03/01 20:19:19 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/04/25 14:42:34 by bschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ int	find_length_var(char *line, int i)
 
 	start = i;
 	while (line[i] != ' ' && line[i] != '\0' && line[i] != '$' \
-		&& line[i] != '\"' && line[i] != '\'')
+		&& line[i] != '\"' && line[i] != '\'' && line[i] != '/' \
+			&& line[i] != ':')
 		i++;
 	return (i - start);
 }

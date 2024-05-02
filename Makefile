@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+         #
+#    By: bschmidt <bschmidt@student.42.de>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/06 14:24:04 by bschmidt          #+#    #+#              #
-#    Updated: 2024/03/12 23:47:44 by okrahl           ###   ########.fr        #
+#    Updated: 2024/04/25 16:30:24 by bschmidt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,10 +39,10 @@ SOURCES = main.c \
 			exec_built_ins/exec_env.c \
 			exec_built_ins/exec_unset.c \
 			exec_built_ins/exec_exit.c \
-			utils/check_infile.c \
 			utils/helpers.c \
 			utils/helpers2.c \
 			utils/helpers3.c \
+			utils/check_infile.c \
 			utils/in_redir_helper.c \
 			utils/out_redir_helper.c \
 			utils/execute_helpers.c \
@@ -60,6 +60,7 @@ SOURCES = main.c \
 			parsing/quote_bullshit2.c \
 			parsing/expand.c \
 			parsing/expand2.c \
+			parsing/expand3.c \
 			parsing/add_spaces.c \
 			parsing/add_spaces2.c \
 			parsing/sig_handler.c \
@@ -138,8 +139,8 @@ fclean: clean
 	$(RM) $(INCLDIR)ft_printf.h
 	$(RM) $(INCLDIR)get_next_line_bonus.h
 
-val: $(NAME)
-	valgrind --suppressions=suppressions.supp --leak-check=full --track-origins=yes --show-leak-kinds=all ./minishell
+#val: $(NAME)
+#	valgrind --suppressions=suppressions.supp --leak-check=full --track-origins=yes --show-leak-kinds=all ./minishell
 
 re: fclean all
 

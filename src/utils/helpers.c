@@ -6,7 +6,7 @@
 /*   By: bschmidt <bschmidt@student.42.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 14:09:06 by bschmidt          #+#    #+#             */
-/*   Updated: 2024/03/05 00:33:03 by bschmidt         ###   ########.fr       */
+/*   Updated: 2024/04/24 21:31:59 by bschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,27 +59,48 @@ void	ft_perror_arg_middle(char *str1, char *str2, char *str3)
 
 void	counting_redirs(t_token *arg, t_data *data)
 {
+	t_token	*args;
+
+	args = arg;
 	data->in_dirs = 0;
 	data->out_dirs = 0;
-	data->here_doc = 0;
 	while (arg && arg->type != PIPE)
 	{
-		if (arg->type == HERE_DOC)
+		if (arg->type == HD_PREP)
 			data->here_doc++;
-		if (arg->type == IN_REDIR || arg->type == HERE_DOC)
+		if (arg->type == IN_REDIR || arg->type == HD_PREP)
 			data->in_dirs++;
 		if (arg->type == OUT_REDIR || arg->type == APPEND)
 			data->out_dirs++;
 		arg = arg->next;
 	}
+	find_input(args, data);
 }
 
-char	**convert_str_to_array(char *str)
+void	find_input(t_token *arg, t_data *data)
 {
-	char	**array;
+	int	x;
+	int	i;
 
-	array = malloc(sizeof(char *) * 2);
-	array[0] = str;
-	array[1] = NULL;
-	return (array);
+	x = 0;
+	i = 0;
+	while (arg && arg->type != PIPE)
+	{
+		if (arg->type == IN_REDIR || arg->type == HD_PREP)
+			i++;
+		if (i == data->in_dirs)
+		{
+			if (arg->type == HD_PREP)
+			{
+				data->hd_flag = 1;
+				return ;
+			}
+			else
+			{
+				data->hd_flag = 0;
+				return ;
+			}
+		}
+		arg = arg->next;
+	}
 }

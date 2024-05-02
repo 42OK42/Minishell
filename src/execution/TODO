@@ -1,0 +1,5 @@
+Enter a line: export PATH=$PATH:/home/bschmidt/AACoreCurr/minishell final
+Its a Built_in mit Content: export
+Its an Argument mit Content: PATH=/home/bschmidt/bin:/home/bschmidt/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/bschmidt/AACoreCurr/so_long:/home/bschmidt/AACoreCurr/so_long:/home/bschmidt/AACoreCurr/minishell
+Its an Argument mit Content: final
+Segmentation fault (core dumped)

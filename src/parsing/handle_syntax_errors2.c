@@ -6,7 +6,7 @@
 /*   By: bschmidt <bschmidt@student.42.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 17:19:50 by okrahl            #+#    #+#             */
-/*   Updated: 2024/03/05 02:52:19 by bschmidt         ###   ########.fr       */
+/*   Updated: 2024/04/24 21:32:43 by bschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ int	inredir_errors(t_token *args)
 		}
 	}
 	else
-		return (ft_perror(" syntax error near unexpected token `newline'\n"), -1);
+		return (ft_perror(" syntax error near \
+			unexpected token `newline'\n"), -1);
 	return (1);
 }
 

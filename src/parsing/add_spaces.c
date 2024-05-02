@@ -6,7 +6,7 @@
 /*   By: bschmidt <bschmidt@student.42.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 16:18:10 by okrahl            #+#    #+#             */
-/*   Updated: 2024/03/05 03:09:09 by bschmidt         ###   ########.fr       */
+/*   Updated: 2024/04/25 16:36:00 by bschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,9 @@ char	*add_spaces(char *s)
 	int		len;
 	int		additional_spaces;
 	char	*new_str;
-	int		seq_count;
 
-	len = strlen(s);
-	seq_count = 0;
-	additional_spaces = count_additional_spaces(s, seq_count);
+	len = ft_strlen(s);
+	additional_spaces = count_additional_spaces(s);
 	new_str = add_spaces_to_str(s, len, additional_spaces);
 	free(s);
 	return (new_str);

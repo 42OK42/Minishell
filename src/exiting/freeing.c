@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   freeing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bschmidt <bschmidt@student.42.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 17:49:25 by bschmidt          #+#    #+#             */
-/*   Updated: 2024/04/03 13:51:53 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/04/24 21:35:30 by bschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	free_all1(t_token *args, t_data *data)
 
 void	free_child(t_data *data, t_token *arg)
 {
-	//ft_printf("TEST\n");
 	free_array(data->env);
 	free_array(data->files);
 	free_middle_list(arg);

@@ -6,7 +6,7 @@
 /*   By: bschmidt <bschmidt@student.42.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 19:01:23 by bschmidt          #+#    #+#             */
-/*   Updated: 2024/01/18 19:05:04 by bschmidt         ###   ########.fr       */
+/*   Updated: 2024/04/25 15:36:34 by bschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_onlydigits(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] >= 48 && str[i] <= 57)
+		if ((str[i] >= 48 && str[i] <= 57) || str[i] == '-' || str[i] == '+')
 			i++;
 		else
 			return (0);

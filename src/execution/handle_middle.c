@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   handle_middle.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bschmidt <bschmidt@student.42.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 16:28:21 by bschmidt          #+#    #+#             */
-/*   Updated: 2024/04/23 19:31:31 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/04/25 16:28:11 by bschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	prep_signals(t_token *arg, t_data *data)
+{
+	counting_redirs(arg, data);
+	signal(SIGINT, handle_sigint_l);
+	signal(SIGQUIT, ft_handle_cat_backslash);
+}
 
 void	exec_child_m(t_token *args, t_data *data)
 {
@@ -33,8 +40,7 @@ void	handle_middle(t_token *args, t_data *data)
 	t_token	*arg;
 
 	arg = get_correct_args(args, data);
-	counting_redirs(arg, data);
-	signal(SIGINT, handle_sigint_l);
+	prep_signals(arg, data);
 	handle_in_redirection_m(arg, data);
 	if (data->fd_in == -1 || data->infile_flag == 1)
 	{
@@ -46,7 +52,9 @@ void	handle_middle(t_token *args, t_data *data)
 	data->pids[data->x] = fork1();
 	if (data->pids[data->x] == -1)
 		exit(1);
-	else if (data->pids[data->x] == 0)
+	else if (data->pids[data->x] != 0)
+		signal(SIGINT, SIG_IGN);
+	else
 		exec_child_m(arg, data);
 	if (data->closed != -1)
 		close(data->fd[0]);

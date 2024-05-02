@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bschmidt <bschmidt@student.42.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 12:18:50 by bschmidt          #+#    #+#             */
-/*   Updated: 2024/04/23 19:26:30 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/04/25 16:26:28 by bschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	prep_next_line(t_data *data)
+void	prep_next_part(t_data *data)
 {
 	data->pipes = data->pipes - 1;
 	data->part = data->part + 1;
@@ -34,8 +34,8 @@ void	exec_args(t_token *args, t_data *data)
 		while (args && args->type != PIPE)
 			args = args->next;
 		handle_part(args_start, data);
-		unlink_here_doc(".Here_doc");
-		prep_next_line(data);
+		unlink_here_doc("Temp_hd");
+		prep_next_part(data);
 		if (args && args->next)
 			args = args->next;
 	}

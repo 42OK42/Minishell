@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 17:25:55 by okrahl            #+#    #+#             */
-/*   Updated: 2024/04/23 20:03:16 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/04/25 20:37:50 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_token	*exec_here_doc2(t_token *args, t_data *data)
 {
 	char	*str;
-	t_token *start;
+	t_token	*start;
 	t_token	*temp;
 
 	start = args;
@@ -26,7 +26,8 @@ t_token	*exec_here_doc2(t_token *args, t_data *data)
 			str = execute_here_doc(data, args->next->content);
 			temp = args->next;
 			args->next = args->next->next;
-			//free_token(temp);
+			free(temp->content);
+			free(temp);
 			free(args->content);
 			args->content = str;
 			args->type = HD_PREP;
@@ -81,11 +82,9 @@ t_token **first_token, t_token **last_token)
 void	process_line(char *line, t_data *data)
 {
 	t_token	*first_token;
-	t_token	*first_token2;
 	t_token	*last_token;
 
 	first_token = NULL;
-	first_token2 = NULL;
 	last_token = NULL;
 	if (line && *line)
 	{
@@ -105,12 +104,19 @@ void	process_line(char *line, t_data *data)
 			return ;
 		}
 		free_quote_flag(data);
-		signal(SIGINT, handle_heredoc);
-		first_token2 = exec_here_doc2(first_token, data);
-		if (g_sig_flag == 130)
-			data->exit = g_sig_flag;
-		signal(SIGINT, handle_sigint);
-		print_args(first_token2);
-		//exec_args(first_token2, data);
+		part2(first_token, data);
 	}
+}
+
+void	part2(t_token *first_token, t_data *data)
+{
+	t_token	*first_token2;
+
+	first_token2 = NULL;
+	signal(SIGINT, handle_heredoc);
+	first_token2 = exec_here_doc2(first_token, data);
+	if (g_sig_flag == 130)
+		data->exit = g_sig_flag;
+	signal(SIGINT, handle_sigint);
+	exec_args(first_token2, data);
 }

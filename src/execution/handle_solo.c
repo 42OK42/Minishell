@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_solo.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bschmidt <bschmidt@student.42.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 16:28:53 by bschmidt          #+#    #+#             */
-/*   Updated: 2024/04/23 19:31:47 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/04/25 15:52:26 by bschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	handle_solo(t_token *args, t_data *data)
 {
 	counting_redirs(args, data);
 	signal(SIGINT, handle_sigint_l);
+	signal(SIGQUIT, ft_handle_cat_backslash);
 	handle_in_redirection_s(args, data);
 	if (data->fd_in == -1)
 	{
@@ -34,7 +35,6 @@ void	handle_solo(t_token *args, t_data *data)
 
 void	handle_in_redirection_s(t_token *args, t_data *data)
 {
-	counting_redirs(args, data);
 	if (data->in_dirs > 0)
 	{
 		get_fd_in(args, data);

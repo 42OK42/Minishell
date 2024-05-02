@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize_words.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bschmidt <bschmidt@student.42.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 16:11:34 by okrahl            #+#    #+#             */
-/*   Updated: 2024/02/29 17:24:24 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/04/25 00:21:23 by bschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_type	get_token_type(char *word, t_data *data, int word_index, t_token *last)
 		return (redir_type);
 	if (is_builtin(word))
 		return (BUILT_IN);
-	command_path = find_command_path(word);
+	command_path = find_command_path(word, data);
 	if (command_path != NULL)
 	{
 		free(command_path);

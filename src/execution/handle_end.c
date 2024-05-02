@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_end.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bschmidt <bschmidt@student.42.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 16:28:35 by bschmidt          #+#    #+#             */
-/*   Updated: 2024/04/23 19:31:18 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/04/25 15:48:05 by bschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	exec_child_e(t_token *args, t_data *data)
 {
-	printf("Die Prozess-ID ist: %d\n", getpid());
 	if (data->in_dirs == 0)
 	{
 		dup2(data->fd[0], STDIN_FILENO);
@@ -28,18 +27,6 @@ void	exec_child_e(t_token *args, t_data *data)
 	}
 }
 
-int	check_in_redir(t_data *data)
-{
-	if (data->fd_in == -1 || data->infile_flag == 1)
-	{
-		close(data->fd[0]);
-		restore_std_io(data);
-		return (1);
-	}
-	else
-		return (0);
-}
-
 void	handle_end(t_token *args, t_data *data)
 {
 	t_token	*arg;
@@ -47,8 +34,9 @@ void	handle_end(t_token *args, t_data *data)
 	arg = get_correct_args(args, data);
 	counting_redirs(arg, data);
 	signal(SIGINT, handle_sigint_l);
+	signal(SIGQUIT, ft_handle_cat_backslash);
 	handle_in_redirection_e(arg, data);
-	if (check_in_redir(data) == 1)
+	if (data->fd_in == -1)
 		return ;
 	handle_out_redirection_e(arg, data);
 	if (data->fd_out == -1)

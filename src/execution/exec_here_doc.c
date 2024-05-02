@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_here_doc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bschmidt <bschmidt@student.42.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 13:45:56 by okrahl            #+#    #+#             */
-/*   Updated: 2024/04/23 20:06:48 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/04/25 15:30:41 by bschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,24 +22,28 @@ void	limit_error(t_data *data, char *end)
 char	*execute_here_doc(t_data *data, char *end)
 {
 	char	*line;
-	char	*result;
+	char	*result1;
+	char	*result2;
+	char	*result3;
 
-	result = "";
+	result1 = "";
+	result3 = NULL;
 	while (1 && g_sig_flag != 130)
 	{
 		line = readline("> ");
 		if (line == NULL)
 		{
 			limit_error(data, end);
-			return (result);
+			return (result1);
 		}
 		if (ft_strcmp(line, end))
 		{
-			result = ft_strjoin(result, line);
-			result = ft_strjoin(result, "\n");
+			result2 = ft_strjoin(result1, line);
+			result3 = ft_strjoin(result2, "\n");
+			free(result2);
 		}
 		if (!ft_strcmp(line, end))
-			return (result);
+			return (result3);
 	}
-	return (result);
+	return (result3);
 }

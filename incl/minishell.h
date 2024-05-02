@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bschmidt <bschmidt@student.42.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 08:41:45 by okrahl            #+#    #+#             */
-/*   Updated: 2024/04/23 19:17:38 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/04/25 16:28:25 by bschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,9 +114,12 @@ typedef struct s_space_info
 int			main(int argc, char **argv, char **env);
 
 //parsing
+void		handle_sigint_include_rd(int sig);
+char		*get_env_value2(t_data *data, char *str);
+void		part2(t_token *first_token, t_data *data);
 int			is_builtin(char *word);
 char		*check_access_and_allocate(char **paths, char *command);
-char		*find_command_path(char *command);
+char		*find_command_path(char *command, t_data *data);
 int			count_words(const char *s, char c);
 void		assign_word(char **result, int word_index, \
 	char const *start, int length);
@@ -159,8 +162,9 @@ int			find_dollar(char *line);
 void		free_words(char **words);
 int			count_special_char_sequence(const char *s, int \
 	*i, char target_char);
+void		prep_signals(t_token *arg, t_data *data);
 int			count_pipe_characters(const char *s, int *i);
-int			count_additional_spaces(const char *s, int seq_count);
+int			count_additional_spaces(const char *s);
 char		*add_spaces_to_str(char *s, int len, int additional_spaces);
 char		*add_spaces(char *s);
 void		print_words(char **words, t_data *data);
@@ -171,6 +175,7 @@ int			process_input_line(char *line, t_data *data, \
 int			pipe_errors(t_token *args);
 int			outredir_errors(t_token *args);
 int			inredir_errors(t_token *args);
+void		find_input(t_token *arg, t_data *data);
 int			count_heredoc_errors(t_token *args);
 int			handle_heredoc_error_output(int counter);
 int			heredoc_errors(t_token *args);
@@ -186,6 +191,8 @@ void		handle_sigint_l(int sig);
 void		handle_sigint(int sig);
 void		ft_handle_cat_backslash(int signum);
 void		handle_heredoc(int signum);
+void		read_here_doc(t_token *args, t_data *data);
+int			not_heredoc(char *line, int i);
 
 //execute parts
 void		handle_part(t_token *arg, t_data *data);
@@ -200,6 +207,7 @@ t_token		*get_correct_place(t_token *args);
 //execute REDIRS helper
 void		counting_redirs(t_token *args, t_data *data);
 void		get_fd_in(t_token *args, t_data *data);
+void		get_fd_in_solo(t_token *args, t_data *data);
 char		*get_correct_infile(t_token *args, t_data *data);
 char		*get_infile_name(t_token *args, t_data *data);
 void		get_fd_out(t_token *args, t_data *data);
@@ -295,7 +303,7 @@ char		*find_command_path2(char *cmd, t_data *data);
 
 //execute_prep
 void		init_struct(t_data *data);
-void		prep_next_line(t_data *data);
+void		prep_next_part(t_data *data);
 void		check_infile(t_data *data, char *filename);
 void		add_infile(t_data *data, char *filename);
 void		counting(t_token *args, t_data *data);

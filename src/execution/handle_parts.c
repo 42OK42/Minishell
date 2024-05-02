@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_parts.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bschmidt <bschmidt@student.42.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 22:27:24 by bschmidt          #+#    #+#             */
-/*   Updated: 2024/03/22 19:42:54 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/04/24 21:37:13 by bschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,8 @@
 void	handle_part(t_token *arg, t_data *data)
 {
 	data->infile_flag = 0;
-	data->hd_flag = 0;
 	if (data->pipes > 0 && data->part == 1)
-			handle_beginning(arg, data);
+		handle_beginning(arg, data);
 	else if (data->pipes > 0 && data->part > 1)
 	{
 		if (pipe(data->fd2) == -1)

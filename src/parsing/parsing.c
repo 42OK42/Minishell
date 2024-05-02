@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bschmidt <bschmidt@student.42.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 15:30:10 by okrahl            #+#    #+#             */
-/*   Updated: 2024/04/18 18:02:30 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/04/25 16:24:57 by bschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,12 @@ int	line_only_spaces1(char *line)
 	return (1);
 }
 
+void	handle_flag(t_data *data)
+{
+	data->exit = g_sig_flag;
+	g_sig_flag = 0;
+}
+
 void	parsing(t_data *data)
 {
 	char	*line;
@@ -29,7 +35,12 @@ void	parsing(t_data *data)
 	data->quote_flag = NULL;
 	while (flag)
 	{
-		line = readline("Enter a line: ");
+		if (g_sig_flag != 0)
+			handle_flag(data);
+		signal(SIGINT, handle_sigint_include_rd);
+		line = readline("minishell: ");
+		if (g_sig_flag != 0)
+			handle_flag(data);
 		if (line == NULL)
 		{
 			free(line);
@@ -40,6 +51,5 @@ void	parsing(t_data *data)
 		if (line_only_spaces1(line) == 1)
 			continue ;
 		process_line(line, data);
-		g_sig_flag = 0;
 	}
 }

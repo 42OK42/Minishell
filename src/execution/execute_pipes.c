@@ -6,7 +6,7 @@
 /*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 20:14:27 by bschmidt          #+#    #+#             */
-/*   Updated: 2024/04/23 18:26:15 by okrahl           ###   ########.fr       */
+/*   Updated: 2024/05/02 19:34:19 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,28 +90,15 @@ t_token	*get_correct_args(t_token *args, t_data *data)
 t_token	*get_correct_place(t_token *args)
 {
 	t_token	*arg;
-	int		skip;
 
 	arg = args;
-	skip = 0;
-	while (arg)
+	while (arg && arg->type != PIPE && arg->type != COMMAND 
+		&& arg->type != BUILT_IN)
 	{
-		if (arg->type == IN_REDIR || arg->type == OUT_REDIR 
-			|| arg->type == APPEND || arg->type == HERE_DOC)
-		{
-			skip = 1;
-			arg = arg->next;
-			continue ;
-		}
-		if (skip == 1)
-		{
-			arg = arg->next;
-			skip = 0;
-			continue ;
-		}
-		if (arg && (arg->type == ARGUMENT || arg->type == COMMAND 
-				|| arg->type == BUILT_IN))
-			return (arg);
+		arg = arg->next;
 	}
-	return (NULL);
+	if (arg == NULL && arg->type != ARGUMENT)
+		return (NULL);
+	else
+		return (arg);
 }

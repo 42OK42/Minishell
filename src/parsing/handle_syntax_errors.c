@@ -6,7 +6,7 @@
 /*   By: bschmidt <bschmidt@student.42.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 17:20:03 by okrahl            #+#    #+#             */
-/*   Updated: 2024/03/05 02:51:28 by bschmidt         ###   ########.fr       */
+/*   Updated: 2024/04/25 16:40:28 by bschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	pipe_errors(t_token *args)
 				return (ft_perror("syntax error near "
 						"unexpected token '||'\n"), -1);
 		}
+		if (args->type == PIPE && args->next == NULL)
+			return (ft_perror("syntax error: Nothing after '|' \n"), -1);
 		args = args->next;
 	}
 	return (1);

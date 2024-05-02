@@ -6,7 +6,7 @@
 /*   By: bschmidt <bschmidt@student.42.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 22:23:38 by bschmidt          #+#    #+#             */
-/*   Updated: 2024/03/05 15:04:25 by bschmidt         ###   ########.fr       */
+/*   Updated: 2024/04/24 21:30:03 by bschmidt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,14 @@ void	ft_print_array(char **array)
 		i++;
 	}
 	return ;
+}
+
+char	**convert_str_to_array(char *str)
+{
+	char	**array;
+
+	array = malloc(sizeof(char *) * 2);
+	array[0] = str;
+	array[1] = NULL;
+	return (array);
 }
