@@ -26,7 +26,7 @@ Minishell implements a basic command-line interpreter with:
 ## Installation
 
 ```bash
-git clone <repository-url>
+git clone git@github.com:42OK42/Minishell.git
 cd Minishell
 make
 ```
