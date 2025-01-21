@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helpers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bschmidt <bschmidt@student.42.de>          +#+  +:+       +#+        */
+/*   By: okrahl <okrahl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 14:09:06 by bschmidt          #+#    #+#             */
-/*   Updated: 2024/04/24 21:31:59 by bschmidt         ###   ########.fr       */
+/*   Updated: 2025/01/21 15:22:38 by okrahl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,8 @@ void	counting_redirs(t_token *arg, t_data *data)
 
 void	find_input(t_token *arg, t_data *data)
 {
-	int	x;
 	int	i;
 
-	x = 0;
 	i = 0;
 	while (arg && arg->type != PIPE)
 	{

@@ -14,9 +14,6 @@
 
 void	exec_argument(t_token *arg, t_data *data)
 {
-	int	status;
-
-	status = 0;
 	exec_argument2(arg, data);
 	return ;
 }
